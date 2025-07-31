@@ -1,4 +1,5 @@
 import inquirer from "inquirer";
+import chalk from "chalk";
 import { apiGet, apiPost } from "../api.js";
 import { promptField, CANCEL } from "../prompt.js";
 
@@ -7,7 +8,11 @@ export const handleLimits = async () => {
     type: "list",
     name: "action",
     message: "Action:",
-    choices: ["GET check/{pc}", "GET users", "POST stop session"],
+    choices: [
+      `${chalk.green('GET')} check/{pc}`,
+      `${chalk.green('GET')} users`,
+      `${chalk.keyword('orange')('POST')} stop session`
+    ],
   });
 
   if (action === "GET check/{pc}") {

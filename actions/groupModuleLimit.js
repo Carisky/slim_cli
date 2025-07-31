@@ -1,4 +1,5 @@
 import inquirer from "inquirer";
+import chalk from "chalk";
 import { apiGet, apiPost, apiPut, apiDelete } from "../api.js";
 import { promptFields, promptField, CANCEL } from "../prompt.js";
 
@@ -7,7 +8,13 @@ export const handleGroupModuleLimit = async () => {
     type: "list",
     name: "action",
     message: "Action:",
-    choices: ["GET all", "GET by id", "POST", "PUT", "DELETE"],
+    choices: [
+      `${chalk.green('GET')} all`,
+      `${chalk.green('GET')} by id`,
+      chalk.keyword('orange')('POST'),
+      chalk.yellow('PUT'),
+      chalk.red('DELETE')
+    ],
   });
 
   if (action === "GET all") {

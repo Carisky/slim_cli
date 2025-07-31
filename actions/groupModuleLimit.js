@@ -9,11 +9,11 @@ export const handleGroupModuleLimit = async () => {
     name: "action",
     message: "Action:",
     choices: [
-      `${chalk.green('GET')} all`,
-      `${chalk.green('GET')} by id`,
-      chalk.keyword('orange')('POST'),
-      chalk.yellow('PUT'),
-      chalk.red('DELETE')
+      { name: `${chalk.green("GET")} all`, value: "GET all" },
+      { name: `${chalk.green("GET")} by id`, value: "GET by id" },
+      { name: chalk.hex("#ff8800ff")("POST"), value: "POST" },
+      { name: chalk.yellow("PUT"), value: "PUT" },
+      { name: chalk.red("DELETE"), value: "DELETE" },
     ],
   });
 
@@ -69,7 +69,11 @@ export const handleGroupModuleLimit = async () => {
     const fields = await promptFields([
       { name: "GroupCode", message: "GroupCode:" },
       { name: "Module", message: "Module:" },
-      { name: "Hour", message: "Hour:", validate: (v) => !isNaN(v) || "Enter a number" },
+      {
+        name: "Hour",
+        message: "Hour:",
+        validate: (v) => !isNaN(v) || "Enter a number",
+      },
       {
         name: "MaxLicenses",
         message: "MaxLicenses:",

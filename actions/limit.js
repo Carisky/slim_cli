@@ -9,9 +9,9 @@ export const handleLimits = async () => {
     name: "action",
     message: "Action:",
     choices: [
-      `${chalk.green('GET')} check/{pc}`,
-      `${chalk.green('GET')} users`,
-      `${chalk.keyword('orange')('POST')} stop session`
+      { name: `${chalk.green('GET')} check/{pc}`, value: "GET check/{pc}" },
+      { name: `${chalk.green('GET')} users`, value: "GET users" },
+      { name: chalk.hex("#ff8800ff")('POST stop session'), value: "POST stop session" }
     ],
   });
 

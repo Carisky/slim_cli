@@ -9,11 +9,11 @@ export const handleUserGroup = async () => {
     name: "action",
     message: "Action:",
     choices: [
-      `${chalk.green('GET')} all`,
-      `${chalk.green('GET')} by UserName`,
-      chalk.keyword('orange')('POST'),
-      chalk.yellow('PUT'),
-      chalk.red('DELETE')
+      { name: `${chalk.green('GET')} all`, value: "GET all" },
+      { name: `${chalk.green('GET')} by UserName`, value: "GET by UserName" },
+      { name: chalk.hex("#ff8800ff")('POST'), value: "POST" },
+      { name: chalk.yellow('PUT'), value: "PUT" },
+      { name: chalk.red('DELETE'), value: "DELETE" }
     ],
   });
 

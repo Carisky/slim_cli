@@ -10,7 +10,7 @@ const resources = [
   { name: 'User Group', value: 'user-group' },
   { name: 'Limits', value: 'limits' },
   new inquirer.Separator(),
-  { name: 'Выход', value: 'exit' }
+  { name: 'Exit', value: 'exit' }
 ];
 
 const handlers = {
@@ -24,12 +24,12 @@ const main = async () => {
     const { resource } = await inquirer.prompt({
       type: 'list',
       name: 'resource',
-      message: 'Выбери ресурс:',
+      message: 'Select resource:',
       choices: resources
     });
 
     if (resource === 'exit') {
-      console.log('Завершено.');
+      console.log('Completed.');
       process.exit(0);
     }
 

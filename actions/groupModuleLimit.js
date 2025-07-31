@@ -1,11 +1,12 @@
 import inquirer from "inquirer";
 import { apiGet, apiPost, apiPut, apiDelete } from "../api.js";
+import { promptFields, promptField, CANCEL } from "../prompt.js";
 
 export const handleGroupModuleLimit = async () => {
   const { action } = await inquirer.prompt({
     type: "list",
     name: "action",
-    message: "Действие:",
+    message: "Action:",
     choices: ["GET all", "GET by id", "POST", "PUT", "DELETE"],
   });
 
@@ -14,55 +15,74 @@ export const handleGroupModuleLimit = async () => {
   }
 
   if (action === "GET by id") {
-    const { id } = await inquirer.prompt({ name: "id", message: "ID:" });
+    const id = await promptField({ name: "id", message: "ID:" });
+    if (id === CANCEL) {
+      console.log("Canceled.");
+      return;
+    }
     console.log(await apiGet(`/api/group-module-limits/${id}`));
   }
 
   if (action === "POST") {
-    const fields = await inquirer.prompt([
+    const fields = await promptFields([
       {
         name: "GroupCode",
         message: "GroupCode:",
-        validate: (v) => v.trim() !== "" || "Обязательное поле",
+        validate: (v) => v.trim() !== "" || "Required field",
       },
       {
         name: "Module",
         message: "Module:",
-        validate: (v) => v.trim() !== "" || "Обязательное поле",
+        validate: (v) => v.trim() !== "" || "Required field",
       },
       {
         name: "Hour",
         message: "Hour:",
-        validate: (v) => !isNaN(v) || "Введите число",
+        validate: (v) => !isNaN(v) || "Enter a number",
       },
       {
         name: "MaxLicenses",
         message: "MaxLicenses:",
-        validate: (v) => !isNaN(v) || "Введите число",
+        validate: (v) => !isNaN(v) || "Enter a number",
       },
     ]);
-    console.log("Отправляем данные:", fields);
+    if (fields === CANCEL) {
+      console.log("Canceled.");
+      return;
+    }
     console.log(await apiPost("/api/group-module-limits", fields));
   }
 
   if (action === "PUT") {
-    const { id } = await inquirer.prompt({ name: "id", message: "ID:" });
-    const fields = await inquirer.prompt([
+    const id = await promptField({ name: "id", message: "ID:" });
+    if (id === CANCEL) {
+      console.log("Canceled.");
+      return;
+    }
+    const fields = await promptFields([
       { name: "GroupCode", message: "GroupCode:" },
       { name: "Module", message: "Module:" },
-      { name: "Hour", message: "Hour:", validate: (v) => !isNaN(v) },
+      { name: "Hour", message: "Hour:", validate: (v) => !isNaN(v) || "Enter a number" },
       {
         name: "MaxLicenses",
         message: "MaxLicenses:",
-        validate: (v) => !isNaN(v),
+        validate: (v) => !isNaN(v) || "Enter a number",
       },
     ]);
+    if (fields === CANCEL) {
+      console.log("Canceled.");
+      return;
+    }
     console.log(await apiPut(`/api/group-module-limits/${id}`, fields));
   }
 
   if (action === "DELETE") {
-    const { id } = await inquirer.prompt({ name: "id", message: "ID:" });
+    const id = await promptField({ name: "id", message: "ID:" });
+    if (id === CANCEL) {
+      console.log("Canceled.");
+      return;
+    }
     await apiDelete(`/api/group-module-limits/${id}`);
-    console.log("Удалено");
+    console.log("Deleted");
   }
 };

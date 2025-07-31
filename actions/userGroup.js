@@ -1,4 +1,5 @@
 import inquirer from "inquirer";
+import chalk from "chalk";
 import { apiGet, apiPost, apiPut, apiDelete } from "../api.js";
 import { promptFields, promptField, CANCEL } from "../prompt.js";
 
@@ -7,7 +8,13 @@ export const handleUserGroup = async () => {
     type: "list",
     name: "action",
     message: "Action:",
-    choices: ["GET all", "GET by UserName", "POST", "PUT", "DELETE"],
+    choices: [
+      `${chalk.green('GET')} all`,
+      `${chalk.green('GET')} by UserName`,
+      chalk.keyword('orange')('POST'),
+      chalk.yellow('PUT'),
+      chalk.red('DELETE')
+    ],
   });
 
   if (action === "GET all") {

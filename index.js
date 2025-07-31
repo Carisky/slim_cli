@@ -4,11 +4,13 @@ import inquirer from 'inquirer';
 import { handleGroupModuleLimit } from './actions/groupModuleLimit.js';
 import { handleUserGroup } from './actions/userGroup.js';
 import { handleLimits } from './actions/limit.js';
+import { configure } from './config.js';
 
 const resources = [
   { name: 'Group Module Limit', value: 'group-module-limit' },
   { name: 'User Group', value: 'user-group' },
   { name: 'Limits', value: 'limits' },
+  { name: 'Configure', value: 'configure' },
   new inquirer.Separator(),
   { name: 'Exit', value: 'exit' }
 ];
@@ -16,10 +18,15 @@ const resources = [
 const handlers = {
   'group-module-limit': handleGroupModuleLimit,
   'user-group': handleUserGroup,
-  'limits': handleLimits
+  'limits': handleLimits,
+  'configure': configure
 };
 
 const main = async () => {
+  if (process.argv[2] === 'config') {
+    await configure();
+    return;
+  }
   while (true) {
     const { resource } = await inquirer.prompt({
       type: 'list',

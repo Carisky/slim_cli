@@ -15,8 +15,14 @@ export const handleLimits = async () => {
         name: chalk.hex("#ff8800ff")("POST stop session"),
         value: "POST stop session",
       },
+      new inquirer.Separator(),
+      { name: "Back", value: "back" },
     ],
   });
+
+  if (action === "back") {
+    return;
+  }
 
   if (action === "GET check/{pc}") {
     const pc = await promptField({ name: "pc", message: "PC:" });

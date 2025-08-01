@@ -13,9 +13,15 @@ export const handleUserGroup = async () => {
       { name: `${chalk.green('GET')} by UserName`, value: "GET by UserName" },
       { name: chalk.hex("#ff8800ff")('POST'), value: "POST" },
       { name: chalk.yellow('PUT'), value: "PUT" },
-      { name: chalk.red('DELETE'), value: "DELETE" }
+      { name: chalk.red('DELETE'), value: "DELETE" },
+      new inquirer.Separator(),
+      { name: 'Back', value: 'back' }
     ],
   });
+
+  if (action === 'back') {
+    return;
+  }
 
   if (action === "GET all") {
     console.table(await apiGet("/api/user-groups"));

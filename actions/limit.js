@@ -9,9 +9,12 @@ export const handleLimits = async () => {
     name: "action",
     message: "Action:",
     choices: [
-      { name: `${chalk.green('GET')} check/{pc}`, value: "GET check/{pc}" },
-      { name: `${chalk.green('GET')} users`, value: "GET users" },
-      { name: chalk.hex("#ff8800ff")('POST stop session'), value: "POST stop session" }
+      { name: `${chalk.green("GET")} check/{pc}`, value: "GET check/{pc}" },
+      { name: `${chalk.green("GET")} users`, value: "GET users" },
+      {
+        name: chalk.hex("#ff8800ff")("POST stop session"),
+        value: "POST stop session",
+      },
     ],
   });
 
@@ -35,7 +38,24 @@ export const handleLimits = async () => {
       console.log("Canceled.");
       return;
     }
-    const result = await apiPost(`/api/limits/users/session/stop/${user}`, {});
+
+    const { forceKill } = await inquirer.prompt({
+      type: "confirm",
+      name: "forceKill",
+      message: "Force kill?",
+      default: false,
+    });
+
+    const headers = {};
+    if (forceKill) {
+      headers["X-Force-Kill"] = "1";
+    }
+
+    const result = await apiPost(
+      `/api/limits/users/session/stop/${user}`,
+      {},
+      headers
+    );
     console.log(result);
   }
 };

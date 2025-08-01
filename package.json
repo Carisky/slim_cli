@@ -1,6 +1,6 @@
 {
-  "name": "slim_cli",
-  "version": "1.0.0",
+  "name": "@yolka/slim-cli",
+  "version": "1.0.2",
   "main": "index.js",
   "type": "module",
   "bin": {

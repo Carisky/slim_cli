@@ -14,8 +14,14 @@ export const handleGroupModuleLimit = async () => {
       { name: chalk.hex("#ff8800ff")("POST"), value: "POST" },
       { name: chalk.yellow("PUT"), value: "PUT" },
       { name: chalk.red("DELETE"), value: "DELETE" },
+      new inquirer.Separator(),
+      { name: "Back", value: "back" },
     ],
   });
+
+  if (action === "back") {
+    return;
+  }
 
   if (action === "GET all") {
     console.table(await apiGet("/api/group-module-limits"));

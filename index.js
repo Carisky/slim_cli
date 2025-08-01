@@ -4,12 +4,14 @@ import inquirer from 'inquirer';
 import { handleGroupModuleLimit } from './actions/groupModuleLimit.js';
 import { handleUserGroup } from './actions/userGroup.js';
 import { handleLimits } from './actions/limit.js';
+import { handleSchedule } from './actions/schedule.js';
 import { configure } from './config.js';
 
 const resources = [
   { name: 'Group Module Limit', value: 'group-module-limit' },
   { name: 'User Group', value: 'user-group' },
   { name: 'Limits', value: 'limits' },
+  { name: 'Schedule', value: 'schedule' },
   { name: 'Configure', value: 'configure' },
   new inquirer.Separator(),
   { name: 'Exit', value: 'exit' }
@@ -19,6 +21,7 @@ const handlers = {
   'group-module-limit': handleGroupModuleLimit,
   'user-group': handleUserGroup,
   'limits': handleLimits,
+  'schedule': handleSchedule,
   'configure': configure
 };
 

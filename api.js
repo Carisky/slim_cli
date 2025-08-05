@@ -13,26 +13,38 @@ const createApi = (extraHeaders = {}) => {
   });
 };
 
+const handleRequest = async (promise) => {
+  try {
+    return (await promise).data;
+  } catch (error) {
+    if (error.response?.status === 404) {
+      console.log(chalk.red('404 Not Found'));
+      return null;
+    }
+    throw error;
+  }
+};
+
 export const apiGet = async (url, headers = {}) => {
   const api = createApi(headers);
   console.log(chalk.green('GET'), url);
-  return (await api.get(url)).data;
+  return handleRequest(api.get(url));
 };
 
 export const apiPost = async (url, data = {}, headers = {}) => {
   const api = createApi(headers);
   console.log(chalk.hex("#ff8800ff")('POST'), url);
-  return (await api.post(url, data)).data;
+  return handleRequest(api.post(url, data));
 };
 
 export const apiPut = async (url, data = {}, headers = {}) => {
   const api = createApi(headers);
   console.log(chalk.yellow('PUT'), url);
-  return (await api.put(url, data)).data;
+  return handleRequest(api.put(url, data));
 };
 
 export const apiDelete = async (url, headers = {}) => {
   const api = createApi(headers);
   console.log(chalk.red('DELETE'), url);
-  return (await api.delete(url)).data;
+  return handleRequest(api.delete(url));
 };

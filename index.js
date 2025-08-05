@@ -5,6 +5,7 @@ import { handleGroupModuleLimit } from './actions/groupModuleLimit.js';
 import { handleUserGroup } from './actions/userGroup.js';
 import { handleLimits } from './actions/limit.js';
 import { handleSchedule } from './actions/schedule.js';
+import { handleExceptionUser } from './actions/exceptionUser.js';
 import { configure } from './config.js';
 
 const resources = [
@@ -12,6 +13,7 @@ const resources = [
   { name: 'User Group', value: 'user-group' },
   { name: 'Limits', value: 'limits' },
   { name: 'Schedule', value: 'schedule' },
+  { name: 'Exception User', value: 'exception-user' },
   { name: 'Configure', value: 'configure' },
   new inquirer.Separator(),
   { name: 'Exit', value: 'exit' }
@@ -22,6 +24,7 @@ const handlers = {
   'user-group': handleUserGroup,
   'limits': handleLimits,
   'schedule': handleSchedule,
+  'exception-user': handleExceptionUser,
   'configure': configure
 };
 

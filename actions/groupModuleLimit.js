@@ -4,19 +4,21 @@ import { apiGet, apiPost, apiPut, apiDelete } from "../api.js";
 import { promptFields, promptField, CANCEL } from "../prompt.js";
 
 export const handleGroupModuleLimit = async () => {
+  const choices = [
+    { name: `${chalk.green("GET")} all`, value: "GET all" },
+    { name: `${chalk.green("GET")} by id`, value: "GET by id" },
+    { name: chalk.hex("#ff8800ff")("POST"), value: "POST" },
+    { name: chalk.yellow("PUT"), value: "PUT" },
+    { name: chalk.red("DELETE"), value: "DELETE" },
+    new inquirer.Separator(),
+    { name: "Back", value: "back" },
+  ];
   const { action } = await inquirer.prompt({
     type: "list",
     name: "action",
     message: "Action:",
-    choices: [
-      { name: `${chalk.green("GET")} all`, value: "GET all" },
-      { name: `${chalk.green("GET")} by id`, value: "GET by id" },
-      { name: chalk.hex("#ff8800ff")("POST"), value: "POST" },
-      { name: chalk.yellow("PUT"), value: "PUT" },
-      { name: chalk.red("DELETE"), value: "DELETE" },
-      new inquirer.Separator(),
-      { name: "Back", value: "back" },
-    ],
+    choices,
+    pageSize: choices.length,
   });
 
   if (action === "back") {

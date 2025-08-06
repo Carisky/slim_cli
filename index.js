@@ -38,7 +38,8 @@ const main = async () => {
       type: 'list',
       name: 'resource',
       message: 'Select resource:',
-      choices: resources
+      choices: resources,
+      pageSize: resources.length
     });
 
     if (resource === 'exit') {

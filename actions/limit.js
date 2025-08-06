@@ -4,20 +4,22 @@ import { apiGet, apiPost } from "../api.js";
 import { promptField, CANCEL } from "../prompt.js";
 
 export const handleLimits = async () => {
+  const choices = [
+    { name: `${chalk.green("GET")} check/{pc}`, value: "GET check/{pc}" },
+    { name: `${chalk.green("GET")} users`, value: "GET users" },
+    {
+      name: chalk.hex("#ff8800ff")("POST stop session"),
+      value: "POST stop session",
+    },
+    new inquirer.Separator(),
+    { name: "Back", value: "back" },
+  ];
   const { action } = await inquirer.prompt({
     type: "list",
     name: "action",
     message: "Action:",
-    choices: [
-      { name: `${chalk.green("GET")} check/{pc}`, value: "GET check/{pc}" },
-      { name: `${chalk.green("GET")} users`, value: "GET users" },
-      {
-        name: chalk.hex("#ff8800ff")("POST stop session"),
-        value: "POST stop session",
-      },
-      new inquirer.Separator(),
-      { name: "Back", value: "back" },
-    ],
+    choices,
+    pageSize: choices.length,
   });
 
   if (action === "back") {

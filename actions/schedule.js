@@ -4,15 +4,17 @@ import { apiGet } from "../api.js";
 import { promptField, CANCEL } from "../prompt.js";
 
 export const handleSchedule = async () => {
+  const choices = [
+    { name: `${chalk.green("GET")}` + " by user", value: "GET by user" },
+    new inquirer.Separator(),
+    { name: "Back", value: "back" },
+  ];
   const { action } = await inquirer.prompt({
     type: "list",
     name: "action",
     message: "Action:",
-    choices: [
-      { name: `${chalk.green("GET")}` + " by user", value: "GET by user" },
-      new inquirer.Separator(),
-      { name: "Back", value: "back" },
-    ],
+    choices,
+    pageSize: choices.length,
   });
 
   if (action === "back") {

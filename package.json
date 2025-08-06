@@ -1,6 +1,6 @@
 {
   "name": "@yolka/slim-cli",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "index.js",
   "type": "module",
   "bin": {
@@ -11,7 +11,7 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "egorkorsun7@gmail.com",
   "license": "ISC",
   "description": "",
   "dependencies": {

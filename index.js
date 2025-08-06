@@ -28,7 +28,26 @@ const handlers = {
   'configure': configure
 };
 
+const helpText = `Usage: slim-cli [options]
+
+Commands:
+  slim-cli config             Configure BASE_URL and X_API_KEY
+
+Routes:
+  group-module-limit    /api/group-module-limits
+  user-group            /api/user-groups
+  limits                /api/limits
+  schedule              /api/schedule/{userName}
+  exception-user        /api/exception-users
+
+Run without options to start interactive mode.`;
+
 const main = async () => {
+  if (process.argv.includes('--help') || process.argv.includes('-h')) {
+    console.log(helpText);
+    return;
+  }
+
   if (process.argv[2] === 'config') {
     await configure();
     return;
